@@ -22,14 +22,14 @@ for l in open(sys.argv[1]).readlines():
         f.close()
     f = open("%s/aflstub.py" % wrkdir, "w")
     f.write("""
-import sys, afl
+import sys, os, afl
 from scapy.all import *
-afl.init()
-try:
+while afl.loop(1000):
+    try:
 """)
-    f.write("    %s(sys.stdin.read())\n" % (cls))
+    f.write("        %s(sys.stdin.read())\n" % (cls))
     if len(exceptions) > 0: 
-        f.write("except (%s) as e:\n    pass\n" % ','.join(exceptions))
+        f.write("    except (%s) as e:\n        pass\nos._exit(0)\n" % ','.join(exceptions))
     else:
         f.write("finally:\n    pass\n")
     f.close()

@@ -1,1 +1,1 @@
-py-afl-fuzz -m500 -d -i in -o out -- python aflstub.py
+py-afl-fuzz -m500 -i in -o out -- python aflstub.py
