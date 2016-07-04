@@ -5,13 +5,13 @@ import base64
 
 for l in open(sys.argv[1]).readlines():
     if l.startswith("#"):
+        sys.stdout.write(l)
         continue
     try:
-        cls, params, exceptions, samples = json.loads(l)
+        cls, exceptions, samples = json.loads(l)
     except ValueError:
-        print l
-        
-    exceptions = ['Scapy_Exception','struct.error']
+        exit("Bad JSON line: %s" % l)
+
     wrkdir = "stub/%s" % cls
     for d in (wrkdir, "%s/in" % wrkdir, "%s/out" % wrkdir):
         if not os.path.exists(d):

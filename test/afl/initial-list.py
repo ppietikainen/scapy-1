@@ -8,8 +8,8 @@ import base64
 '''
 
 
-def print_json(cls, args, samples):
-    print(json.dumps([cls.__name__, args, [], samples]))
+def print_json(cls, samples):
+    print(json.dumps([cls.__name__, ["Scapy_Exception",], samples]))
 
 def get_samples(p):
     r=set()
@@ -30,13 +30,13 @@ def print_packet_subclasses():
     for s in ps:
         try:
             s(str(s()))
-            print_json(s, '', get_samples(s()))
+            print_json(s, get_samples(s()))
         except Exception as e:
             fail.add(s)
     for s in list(fail):
         try:
             s(str(s("a")))
-            print_json(s, "'a'",get_samples(s("a")))
+            print_json(s, get_samples(s("a")))
             fail.remove(s)
         except:
             pass
